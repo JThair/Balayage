@@ -4,94 +4,119 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BALAYAGE | JT Hair Salon</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      color: #f5f5f5;
-      font-family: 'Montserrat', Arial, sans-serif;
-      line-height: 1.6;
-      text-align: center;
+    :root{ --bg:#000; --text:#f5f5f5; --muted:#cfcfcf; --line:#2a2a2a; --brand:#ffcc00; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:'Montserrat', Arial, sans-serif; line-height:1.6; text-align:center;
     }
-    .top-bar {
-      width: 100%;
-      padding: 15px 25px;
-      display: flex;
-      justify-content: flex-end;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 999;
+    a{color:var(--text); text-decoration:none}
+    a:hover{color:#000; background:var(--text)}
+
+    /* Header with centered dropdown nav */
+    header{
+      position:sticky; top:0; z-index:1000;
+      background:rgba(0,0,0,.7);
+      backdrop-filter:saturate(180%) blur(12px);
+      box-shadow:0 2px 8px rgba(0,0,0,.6);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:10px 12px 6px;
     }
-    .top-bar a {
-      text-decoration: none;
-      color: #f5f5f5;
-      border: 1px solid #f5f5f5;
-      padding: 6px 14px;
-      border-radius: 5px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: background 0.3s, color 0.3s;
+    .logo{ font-weight:700; font-size:1.8rem; letter-spacing:.08em; line-height:1; }
+
+    /* Back to main page link (top-left) */
+    .back-link{
+      position:absolute; left:12px; top:10px;
+      padding:6px 12px; border:1px solid var(--text); border-radius:6px; font-weight:600;
     }
-    .top-bar a:hover {
-      background: #f5f5f5;
-      color: #000;
+    .back-link:hover{ background:var(--text); color:#000 }
+
+    /* Top navigation */
+    .topnav{width:100%; display:flex; justify-content:center; margin-top:8px}
+    .topnav ul{list-style:none; margin:0; padding:0; display:flex; justify-content:center; align-items:center; flex-wrap:wrap}
+    .topnav li{position:relative}
+
+    /* unify baseline & height */
+    .topnav a, .topnav .menu-label{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 18px; border-radius:8px; line-height:1; font-weight:600;
+      color:var(--text); text-decoration:none;
     }
-    .image-container {
-      margin-top: 80px;
+    .topnav > ul > li > a:hover, .topnav .menu-label:hover{ background:#1a1a1a }
+
+    /* Non-clickable Services label */
+    .topnav .menu-label{
+      appearance:none; background:transparent; border:0; margin:0; cursor:default; font:inherit;
     }
-    .image-container img {
-      max-width: 60%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-      border: none;
+
+    /* Dropdown */
+    .topnav li ul{
+      display:none; position:absolute; left:0; top:100%;
+      background:#000; border:1px solid #222; border-radius:10px; min-width:200px;
+      padding:6px; margin-top:6px; z-index:1200; box-shadow:0 10px 24px rgba(0,0,0,.45);
+      text-align:left;
     }
-    .content {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-      text-align: left;
-    }
-    .content h1, .content h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #ffffff;
-    }
-    .content p {
-      margin-bottom: 15px;
-    }
-    .important {
-      border-left: 3px solid #ffcc00;
-      background: #111;
-      padding: 15px;
-      margin: 25px 0;
-      font-weight: 500;
-    }
-    .process-step {
-      margin-bottom: 25px;
-    }
-    .process-step strong {
-      color: #ffcc00;
-      display: block;
-      margin-bottom: 5px;
-      font-size: 1.05rem;
-    }
+    .topnav li ul li a{ padding:10px 12px; border-radius:8px; white-space:nowrap }
+    .topnav li ul li a:hover{ background:#1f1f1f }
+
+    /* Show dropdown on hover and keyboard focus */
+    .topnav li.has-submenu:hover > ul,
+    .topnav li.has-submenu:focus-within > ul{ display:block }
+
+    /* Current page highlight */
+    .topnav .current, .topnav a[aria-current="page"]{ background:#1f1f1f; cursor:default; }
+
+    /* Page layout */
+    .image-container{ margin-top:24px }
+    .image-container img{ max-width:60%; height:auto; display:block; margin:0 auto; border:none; }
+    .content{ max-width:800px; margin:40px auto; padding:0 20px; text-align:left; }
+    .content h1, .content h2{ text-align:center; margin-bottom:20px; color:#fff; }
+    .content p{ margin-bottom:15px }
+    .important{ border-left:3px solid var(--brand); background:#111; padding:15px; margin:25px 0; font-weight:500; }
+    .process-step{ margin-bottom:25px }
+    .process-step strong{ color:var(--brand); display:block; margin-bottom:5px; font-size:1.05rem; }
+
+    @media (max-width:768px){ .image-container img{ max-width:88% } }
   </style>
 </head>
 <body>
 
-  <div class="top-bar">
-    <a href="https://jthair.github.io/">← Back to Main Page</a>
-  </div>
+  <!-- Header + centered dropdown nav -->
+  <header role="banner" aria-label="Site header">
+    <a class="back-link" href="https://jthair.art/" aria-label="Back to Main Page">← Back to Main Page</a>
+    <div class="logo" aria-label="JT Hair logo">JT Hair</div>
 
+    <nav class="topnav" role="navigation" aria-label="Primary">
+      <ul>
+        <li class="has-submenu">
+          <button class="menu-label" aria-haspopup="true" aria-expanded="false">Services ▾</button>
+          <ul aria-label="Services submenu">
+            <li><a href="https://jthair.github.io/Art-Of-Dry-Cutting/">Dry Cutting</a></li>
+            <li><a href="https://jthair.github.io/Balayage/" class="current" aria-current="page">Balayage</a></li>
+            <li><a href="https://jthair.github.io/Foilayage/">Foilayage</a></li>
+          </ul>
+        </li>
+        <li><a href="https://jthair.github.io/Deals/">Deals</a></li>
+        <li><a href="https://jthair.github.io/Deals/">Referrals</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero image -->
   <div class="image-container">
     <img src="https://i.imgur.com/KhiUt6p.jpeg" alt="Balayage Highlighting">
   </div>
 
-  <div class="content">
+  <!-- Main content -->
+  <div class="content" role="main">
     <h1>Balayage Highlighting Technique</h1>
     <p>Balayage is a free-hand hair painting technique designed to give a soft, natural lift of 1–3 levels. Instead of applying lightener in foils, the bleach is brushed directly onto the surface of the hair, creating a sun-kissed effect.</p>
     <p>Think of it like spending time outdoors: the hair that’s exposed to the sun naturally becomes lighter, while the hidden layers underneath stay darker. This results in a dimensional, lived-in look with lighter tones framing the face and crown, and deeper shades underneath for contrast.</p>
